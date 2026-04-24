@@ -6,4 +6,4 @@ duckdb==1.2.1
 pandas==2.2.3
 pyarrow==19.0.1
 boto3==1.37.18
-faker==37.0.0
+requests==2.32.3
