@@ -1,0 +1,26 @@
+name: iceberg_datalake
+version: 1.0.0
+config-version: 2
+
+profile: iceberg_datalake
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+
+clean-targets:
+  - target
+  - dbt_packages
+
+models:
+  iceberg_datalake:
+    bronze:
+      +materialized: table
+      +schema: bronze
+    silver:
+      +materialized: table
+      +schema: silver
+    gold:
+      +materialized: table
+      +schema: gold
