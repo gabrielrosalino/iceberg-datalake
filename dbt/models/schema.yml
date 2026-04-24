@@ -1,0 +1,47 @@
+version: 2
+
+models:
+  - name: bronze_open_meteo_daily
+    description: Dados brutos da API pública Open-Meteo carregados na camada Bronze.
+    columns:
+      - name: weather_date
+        tests:
+          - not_null
+      - name: location_id
+        tests:
+          - not_null
+      - name: batch_id
+        tests:
+          - not_null
+
+  - name: silver_daily_weather
+    description: Dados climáticos limpos, tipados, deduplicados e classificados por intensidade de chuva.
+    columns:
+      - name: weather_date
+        tests:
+          - not_null
+      - name: location_id
+        tests:
+          - not_null
+      - name: precipitation_class
+        tests:
+          - accepted_values:
+              values: ['dry', 'light_rain', 'moderate_rain', 'heavy_rain']
+
+  - name: gold_weather_by_city
+    description: Métricas agregadas por cidade monitorada.
+    columns:
+      - name: location_id
+        tests:
+          - not_null
+          - unique
+
+  - name: gold_weather_daily_state
+    description: Métricas climáticas diárias agregadas por estado.
+    columns:
+      - name: weather_date
+        tests:
+          - not_null
+      - name: state
+        tests:
+          - not_null
